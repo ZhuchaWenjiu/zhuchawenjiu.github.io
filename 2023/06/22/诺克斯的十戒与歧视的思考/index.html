@@ -1,35 +1,368 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-Hans">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="renderer" content="webkit">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>
-        Hexo
-    </title>
-    
-<link rel="stylesheet" href="/libs/highlight/styles/monokai-sublime.css">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="诺克斯的十诫在很久以前就规定了推理小说应当怎么做，但是其中第五条很奇怪，无法理解为何会这样。   罪犯必须是故事开始时出现过的人。 侦探不能用超自然的或怪异的侦探方法 犯罪现场不能有超过一个秘密房间或通道 作案时候，不能使用尚未发明的毒药 不准有中国人出现在故事里 侦探不得用偶然事件或不负责任的直觉来侦破案件 侦探不得成为罪犯 侦探不得根据小说中未向读者提示过的线索破案 华生必须将其判断毫无保留地">
+<meta property="og:type" content="article">
+<meta property="og:title" content="诺克斯的十戒与歧视的思考">
+<meta property="og:url" content="http://example.com/2023/06/22/%E8%AF%BA%E5%85%8B%E6%96%AF%E7%9A%84%E5%8D%81%E6%88%92%E4%B8%8E%E6%AD%A7%E8%A7%86%E7%9A%84%E6%80%9D%E8%80%83/index.html">
+<meta property="og:site_name" content="MySite">
+<meta property="og:description" content="诺克斯的十诫在很久以前就规定了推理小说应当怎么做，但是其中第五条很奇怪，无法理解为何会这样。   罪犯必须是故事开始时出现过的人。 侦探不能用超自然的或怪异的侦探方法 犯罪现场不能有超过一个秘密房间或通道 作案时候，不能使用尚未发明的毒药 不准有中国人出现在故事里 侦探不得用偶然事件或不负责任的直觉来侦破案件 侦探不得成为罪犯 侦探不得根据小说中未向读者提示过的线索破案 华生必须将其判断毫无保留地">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="article:published_time" content="2023-06-22T12:55:52.000Z">
+<meta property="article:modified_time" content="2023-10-30T16:20:12.114Z">
+<meta property="article:author" content="zhuchawenjiu">
+<meta property="article:tag" content="溯源">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/404.jpg">
+
+
+<title >诺克斯的十戒与歧视的思考</title>
+
+<!-- Favicon -->
+
+    <link href='/img/favicon.svg?v=2.1.6' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/img/favicon.svg?v=2.1.6' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+    <link href='/apple-touch-icon.png?v=2.1.6' rel='apple-touch-icon' sizes='180x180' ></link>
+
+
+    <link href='/site.webmanifest' rel='manifest' ></link>
+
+
+<!-- Plugin -->
+
+
+
 
     
-<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
 
     
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
 
+    
+<link rel="stylesheet" href="https://unpkg.com/swiper@4.5.1/dist/css/swiper.min.css">
+
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"zhuchawenjiu","root":"/","typed_text":["a normal coder"],"theme_version":"2.1.6","theme":{"switch":true,"default":"style-dark"},"favicon":{"logo":"/img/favicon.svg","icon16":"/img/favicon.svg","icon32":"/img/favicon.svg","appleTouchIcon":"apple-touch-icon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","showText":"(/≧▽≦/)咦！又好了！","hideText":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"covers":["/img/folder1.jpg","/img/folder2.jpg","/img/folder3.jpg"]};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2023-10-31 00:20:12"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.1.6" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+ 
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body id="bodyx">
-    <div class="hd posts">
-    <a href="/index.html"><i class="fa fa-reply replay-btn" aria-hidden="true"></i></a>
-    <div class="post-title">
-        <p>
-            诺克斯的十戒与歧视的思考
-        </p>
-        <hr>
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
-    <div class="post-content">
-        <p>诺克斯的十诫在很久以前就规定了推理小说应当怎么做，但是其中第五条很奇怪，无法理解为何会这样。</p>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/img/favicon.svg">
+    
+    
+        <div class="trm-logo-text">
+            DM<span>H</span>
+        </div>
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    首页
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    归档
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/about/" target="">
+                    关于
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            诺克斯的十戒与歧视的思考
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2023
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="https://bu.dusays.com/2022/10/17/634d313602a1e.png">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        zhuchawenjiu
+    </h5>
+    
+        <div class="trm-label">
+            I`m
+            <span class="trm-typed-text">
+                <!-- Words for theme.user.typedText -->
+            </span>
+        </div>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://github.com" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                现 址:
+            </div>
+            <div class="trm-label trm-label-light">
+                大连
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                年 龄:
+            </div>
+            <div class="trm-label trm-label-light">
+                25
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
+    <!-- action button -->
+    <div class="text-center">
+        <a href="mailto:zhuchawenjiu@gmail.com" class="trm-btn">
+            联系我
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    </div>
+    <!-- action button end -->
+
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            06/22
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            20:55
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            zhuchawenjiu
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <p>诺克斯的十诫在很久以前就规定了推理小说应当怎么做，但是其中第五条很奇怪，无法理解为何会这样。</p>
 <blockquote>
 <ol>
 <li class="lvl-3">罪犯必须是故事开始时出现过的人。</li>
@@ -52,7 +385,7 @@
 <p>：姬海棠果链接：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/38818931/answer/759199746">https://www.zhihu.com/question/38818931/answer/759199746</a><br>
 来源：知乎著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 </blockquote>
-<p>当然，为了求证是不是真的，还需要继续溯源先直达维基百科看看咋说的<img src="/2023/06/22/%E8%AF%BA%E5%85%8B%E6%96%AF%E7%9A%84%E5%8D%81%E6%88%92%E4%B8%8E%E6%AD%A7%E8%A7%86%E7%9A%84%E6%80%9D%E8%80%83/f6a0f458b5a70900de59a3e55a6de292.png" alt="f6a0f458b5a70900de59a3e55a6de292.png"><br>
+<p>当然，为了求证是不是真的，还需要继续溯源先直达维基百科看看咋说的<img src="/2023/06/22/%E8%AF%BA%E5%85%8B%E6%96%AF%E7%9A%84%E5%8D%81%E6%88%92%E4%B8%8E%E6%AD%A7%E8%A7%86%E7%9A%84%E6%80%9D%E8%80%83/f6a0f458b5a70900de59a3e55a6de292.png" alt="f6a0f458b5a70900de59a3e55a6de292.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>
 中文百科给了这两种解释然后跳转到<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Ronald_Knox">英文</a></p>
 <blockquote>
 <p>He expanded upon this definition by giving ten rules of writing detective fiction:</p>
@@ -90,79 +423,179 @@
 </li>
 </ol>
 <p>看到这里其实 <code>chinaman</code> 就已经知道是啥意思，但是溯源嘛，有参考就直奔参考</p>
-<p><img src="/2023/06/22/%E8%AF%BA%E5%85%8B%E6%96%AF%E7%9A%84%E5%8D%81%E6%88%92%E4%B8%8E%E6%AD%A7%E8%A7%86%E7%9A%84%E6%80%9D%E8%80%83/db638732cf3c40d293ca6e9837fd7ada" alt="db638732cf3c40d293ca6e9837fd7ada"></p>
+<p><img src="/2023/06/22/%E8%AF%BA%E5%85%8B%E6%96%AF%E7%9A%84%E5%8D%81%E6%88%92%E4%B8%8E%E6%AD%A7%E8%A7%86%E7%9A%84%E6%80%9D%E8%80%83/db638732cf3c40d293ca6e9837fd7ada" alt="db638732cf3c40d293ca6e9837fd7ada" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <p>论文直接定义这就是种族歧视了，其实刚才就应该停了的，毕竟已经是歧视词语了，继续找一方面是因为有参考文献，另一方面就防止 <code>chinaman</code> 是当时的常用词语，没有歧视的意味</p>
 <blockquote>
 <p>Rzepka, Charles J. (2007). “Race, Region, Rule: Genre and the Case of Charlie Chan”. PMLA. 122 (5): 1463–1481</p>
 </blockquote>
 <p>就此结案</p>
-<p>对歧视的洗白从上到下贯彻了整个亚洲文明，仅仅从现在的知乎就能看到不少<img src="/2023/06/22/%E8%AF%BA%E5%85%8B%E6%96%AF%E7%9A%84%E5%8D%81%E6%88%92%E4%B8%8E%E6%AD%A7%E8%A7%86%E7%9A%84%E6%80%9D%E8%80%83/07825545a15f71b5f46cd129e0d64e3d.png" alt="07825545a15f71b5f46cd129e0d64e3d.png"><br>
-图1 指出后直接当缩头乌龟的<img src="/2023/06/22/%E8%AF%BA%E5%85%8B%E6%96%AF%E7%9A%84%E5%8D%81%E6%88%92%E4%B8%8E%E6%AD%A7%E8%A7%86%E7%9A%84%E6%80%9D%E8%80%83/04b14ac1f90b5d30fd6c30bc903ae661.png" alt="04b14ac1f90b5d30fd6c30bc903ae661.png"><br>
-图2 对已经无争议的问题继续用功夫稀释信息的<img src="/2023/06/22/%E8%AF%BA%E5%85%8B%E6%96%AF%E7%9A%84%E5%8D%81%E6%88%92%E4%B8%8E%E6%AD%A7%E8%A7%86%E7%9A%84%E6%80%9D%E8%80%83/e33807c37ca9d8208d6f00dcfa75d23a.png" alt="e33807c37ca9d8208d6f00dcfa75d23a.png"><br>
+<p>对歧视的洗白从上到下贯彻了整个亚洲文明，仅仅从现在的知乎就能看到不少<img src="/2023/06/22/%E8%AF%BA%E5%85%8B%E6%96%AF%E7%9A%84%E5%8D%81%E6%88%92%E4%B8%8E%E6%AD%A7%E8%A7%86%E7%9A%84%E6%80%9D%E8%80%83/07825545a15f71b5f46cd129e0d64e3d.png" alt="07825545a15f71b5f46cd129e0d64e3d.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>
+图1 指出后直接当缩头乌龟的<img src="/2023/06/22/%E8%AF%BA%E5%85%8B%E6%96%AF%E7%9A%84%E5%8D%81%E6%88%92%E4%B8%8E%E6%AD%A7%E8%A7%86%E7%9A%84%E6%80%9D%E8%80%83/04b14ac1f90b5d30fd6c30bc903ae661.png" alt="04b14ac1f90b5d30fd6c30bc903ae661.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>
+图2 对已经无争议的问题继续用功夫稀释信息的<img src="/2023/06/22/%E8%AF%BA%E5%85%8B%E6%96%AF%E7%9A%84%E5%8D%81%E6%88%92%E4%B8%8E%E6%AD%A7%E8%A7%86%E7%9A%84%E6%80%9D%E8%80%83/e33807c37ca9d8208d6f00dcfa75d23a.png" alt="e33807c37ca9d8208d6f00dcfa75d23a.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>
 图3 提问者只回复用功夫洗白的人</p>
 <p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/38818931">知乎链接</a></p>
 <p>这个问题不仅仅在大陆存在，维基百科的中文界面都是拥有这样的洗白方案，同时很贴心的放到歧视的上面，既做到说实话，又做到了洗白，非常友好<br>
-<img src="/2023/06/22/%E8%AF%BA%E5%85%8B%E6%96%AF%E7%9A%84%E5%8D%81%E6%88%92%E4%B8%8E%E6%AD%A7%E8%A7%86%E7%9A%84%E6%80%9D%E8%80%83/fca92d048bc345429aa5bcc194dafe76" alt="fca92d048bc345429aa5bcc194dafe76"></p>
+<img src="/2023/06/22/%E8%AF%BA%E5%85%8B%E6%96%AF%E7%9A%84%E5%8D%81%E6%88%92%E4%B8%8E%E6%AD%A7%E8%A7%86%E7%9A%84%E6%80%9D%E8%80%83/fca92d048bc345429aa5bcc194dafe76" alt="fca92d048bc345429aa5bcc194dafe76" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <p>图4 维基百科中不同华语的词条</p>
 <blockquote>
 <p>最后补充一下，为何说这是洗白。有能力看到外语的人第一眼就知道是歧视，这是毋庸置疑的，使用其他理由辩解，这不就是洗白么？用功夫洗白的，很明显就是没有理由了，第二条就是不能存在超能力，立本有忍术怎么没提日本人？空手道泰拳跆拳道这么多东西为何仅仅提中国？</p>
 </blockquote>
 <p><mark>历史就是历史，发生过的就是历史，对历史的不尊重实际上是对现实利益的索取，无论是给始皇帝按上没有的功绩<a href="../undefined">2023年5月19日</a>，还是为侵略者洗白，或是不能正视以前卑微的历史</mark></p>
 
-    </div>
+</article>
+    
+    
 
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2023/07/25/%E5%85%B3%E4%BA%8E%E5%8F%8D%E6%99%BA%E8%A8%80%E8%AE%BA%E2%80%94%E2%80%94%E2%80%9C%E7%A7%91%E5%AD%A6%E4%B9%9F%E6%98%AF%E4%B8%80%E7%A7%8D%E5%AE%97%E6%95%99%E2%80%9D%E7%9A%84%E6%80%9D%E8%80%83%E4%B8%8E%E8%BE%A8%E6%9E%90/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-img" data-random-img></div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E6%80%9D%E8%80%83/">
+                    思考
+                </a>
+            </div>
+            <h5>
+                <a href="/2023/07/25/%E5%85%B3%E4%BA%8E%E5%8F%8D%E6%99%BA%E8%A8%80%E8%AE%BA%E2%80%94%E2%80%94%E2%80%9C%E7%A7%91%E5%AD%A6%E4%B9%9F%E6%98%AF%E4%B8%80%E7%A7%8D%E5%AE%97%E6%95%99%E2%80%9D%E7%9A%84%E6%80%9D%E8%80%83%E4%B8%8E%E8%BE%A8%E6%9E%90/" class="trm-anima-link">
+                    关于反智言论——“科学也是一种宗教”的思考与辨析
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>23/07/25</li>
+                <li>12:51</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
     
 </div>
-    <div class="footer" id="footer">
-    <p>Copyright © 2020 <a class="flink" target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>-<a class="flink" target="_blank" rel="noopener" href="https://github.com/sanjinhub/hexo-theme-geek">Geek</a>.
-        <label class="el-switch el-switch-green el-switch-sm" style="vertical-align: sub;">
-            <input type="checkbox" name="switch" id="update_style">
-            <span class="el-switch-style"></span>
-        </label>
-<!--         <script type="text/javascript">
-        var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");
-        document.write(unescape("%3Cspan id='cnzz_stat_icon_1278548644'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D1278548644%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
-        </script> -->
-    </p>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-scroll-animation">
+
+    
+
+    
+
+      
+
+     
+
+     
+</footer>
+ 
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<input type="hidden" id="web_style" value="black">
-<input type="hidden" id="valine_appid" value="CmCti21ooOOIzFOhEyFkFvR0-gzGzoHsz">
-<input type="hidden" id="valine_appKey" value="FqiyUqbg7McKN2eG0MCewupf">
+            <!-- body end -->
 
-<script src="/libs/jquery.min.js"></script>
+            
+
+            
+<div class="trm-fixed-container">
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn hidden-md" data-title="单栏和双栏切换" onclick="asyncFun.switchSingleColumn()">
+            <i class="iconfont fas fa-arrows-alt-h"></i>
+        </div>
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+  <!-- Plugin -->
 
 
-<script src="/libs/highlight/highlight.pack.js"></script>
 
-<script src='//cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
 
-<script src="/js/js.js"></script>
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
 
-<style type="text/css">
-.v * {
-    color: #698fca;
-}
+    
+<script src="https://unpkg.com/swiper@4.5.1/dist/js/swiper.min.js"></script>
 
-.v .vlist .vcard .vhead .vsys {
-    color: #3a3e4a;
-}
 
-.v .vlist .vcard .vh .vmeta .vat {
-    color: #638fd5;
-}
+    
+        <script src="/js/plugins/typing.js?v=2.1.6"></script>
+    
 
-.v .vlist .vcard .vhead .vnick {
-    color: #6ba1ff;
-}
+    
 
-.v a {
-    color: #8696b1;
-}
+    <!-- 数学公式 -->
+    
 
-.v .vlist .vcard .vhead .vnick:hover {
-    color: #669bfc;
-}
-</style>
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.1.6"></script>
+
 </body>
 
 </html>
