@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="Part 1 搞个服务器 相较于物理服务器，更推荐使用云服务器，首先是可以白嫖，其次是管理方便一点，也不用电费。如果需要用做NAS的需求，也可以一起搞，否则还是云服务器更划算一些，毕竟一开始都是小网站或者自己给自己搞宣传的，不会有太多人访问，能用就行。 白嫖云服务器 目前的白嫖是阿里云的学生优惠，可以免费领七个月的服务器和300的优惠券，其他方式以后再记录 方式一：通过试用中心免费领取ECS实例满">
+<meta property="og:type" content="article">
+<meta property="og:title" content="buildPersonalWebsite">
+<meta property="og:url" content="http://example.com/2023/11/04/buildPersonalWebsite/index.html">
+<meta property="og:site_name" content="MySite">
+<meta property="og:description" content="Part 1 搞个服务器 相较于物理服务器，更推荐使用云服务器，首先是可以白嫖，其次是管理方便一点，也不用电费。如果需要用做NAS的需求，也可以一起搞，否则还是云服务器更划算一些，毕竟一开始都是小网站或者自己给自己搞宣传的，不会有太多人访问，能用就行。 白嫖云服务器 目前的白嫖是阿里云的学生优惠，可以免费领七个月的服务器和300的优惠券，其他方式以后再记录 方式一：通过试用中心免费领取ECS实例满">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="article:published_time" content="2023-11-04T14:44:33.000Z">
+<meta property="article:modified_time" content="2023-11-04T15:01:20.848Z">
+<meta property="article:author" content="zhuchawenjiu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/404.jpg">
+
+
+<title >buildPersonalWebsite</title>
+
+<!-- Favicon -->
+
+    <link href='/log.svg?v=2.1.6' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/log.svg?v=2.1.6' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+    <link href='/log.svg?v=2.1.6' rel='apple-touch-icon' sizes='180x180' ></link>
+
+
+    <link href='/site.webmanifest' rel='manifest' ></link>
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/swiper@4.5.1/dist/css/swiper.min.css">
+
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"zhuchawenjiu","root":"/","typed_text":["a normal coder"],"theme_version":"2.1.6","theme":{"switch":true,"default":"style-dark"},"favicon":{"logo":"log.svg","icon16":"log.svg","icon32":"log.svg","appleTouchIcon":"log.svg","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"hidden.svg","showText":"回来就好(/≧▽≦/)","hideText":"你要去哪？"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"covers":["/img/folder1.jpg","/img/folder2.jpg","/img/folder3.jpg"]};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2023-11-04 23:01:20"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.1.6" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+ 
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/log.svg">
+    
+    
+        <div class="trm-logo-text">
+            DM<span>H</span>
+        </div>
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    首页
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    归档
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/category/" target="">
+                    分类
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/about/" target="">
+                    关于
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner slideshow cover-->
+    <div class="swiper-container trm-slideshow">
+        <div class="swiper-wrapper">
+            
+            <div class="swiper-slide">
+                <img style="object-position:top;object-fit:cover" src="/img/bg2.png" alt="banner" class="trm-banner-cover top" data-swiper-parallax-y="-200" data-swiper-parallax-scale="1.2">
+            </div>
+            
+            <div class="swiper-slide">
+                <img style="object-position:top;object-fit:cover" src="/img/bg2.jpg" alt="banner" class="trm-banner-cover top" data-swiper-parallax-y="-200" data-swiper-parallax-scale="1.2">
+            </div>
+            
+            <div class="swiper-slide">
+                <img style="object-position:top;object-fit:cover" src="https://picdm.sunbangyan.cn/2023/11/01/614fbb4a81a0cf854dc2d27782728139.png" alt="banner" class="trm-banner-cover top" data-swiper-parallax-y="-200" data-swiper-parallax-scale="1.2">
+            </div>
+            
+        </div>
+    </div>
+    <!-- banner slideshow cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            About me
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            明月出天山，苍茫云海间。<br>长风几万里，吹度玉门关。
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2023
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="https://picdm.sunbangyan.cn/2023/11/01/8e5120a7dd2540706a5e1f523d7d0dc8.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        zhuchawenjiu
+    </h5>
+    
+        <div class="trm-label">
+            I`m
+            <span class="trm-typed-text">
+                <!-- Words for theme.user.typedText -->
+            </span>
+        </div>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://github.com" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fas fa-cloud"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                现 址:
+            </div>
+            <div class="trm-label trm-label-light">
+                大连
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                年 龄:
+            </div>
+            <div class="trm-label trm-label-light">
+                25
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
+    <!-- action button -->
+    <div class="text-center">
+        <a href="mailto:zhuchawenjiu@gmail.com" class="trm-btn">
+            联系我
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    </div>
+    <!-- action button end -->
+
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    
+
+
+	<h2 id="Part-1-搞个服务器">Part 1 搞个服务器</h2>
+<p>相较于物理服务器，更推荐使用云服务器，首先是可以白嫖，其次是管理方便一点，也不用电费。如果需要用做NAS的需求，也可以一起搞，否则还是云服务器更划算一些，毕竟一开始都是小网站或者自己给自己搞宣传的，不会有太多人访问，能用就行。</p>
+<p><strong>白嫖云服务器</strong></p>
+<p>目前的白嫖是阿里云的学生优惠，可以免费领七个月的服务器和300的优惠券，其他方式以后再记录</p>
+<p>方式一：通过试用中心免费领取ECS实例满足以下全部条件的阿里云用户，可免费试用云服务器ECS：</p>
+<p>阿里云注册会员用户并完成阿里云企业认证或个人认证用户。申请用户是云服务器ECS产品的新用户，可以申请获得某一规格ECS的一次免费试用机会。如用户账号有欠费，需先补足欠费再进行试用。</p>
+<p>您可以访问阿里云免费试用页面：<a target="_blank" rel="noopener" href="https://free.aliyun.com/">https://free.aliyun.com/</a></p>
+<p>单击页面右上方的登录/注册按钮，并根据页面提示完成账号登录（已有阿里云账号）、账号注册（尚无阿里云账号）或实名认证（根据试用产品要求完成个人实名认证或企业实名认证）。成功登录后，在产品类别下选择计算 &gt; 云服务器 ECS，根据实名认证类型和业务需求按需选择云服务器试用规格，单击立即试用。</p>
+<blockquote>
+<p>提示：须在领取时确认规格、地域等相关信息，领取成功后将不支持更改。</p>
+</blockquote>
+<p>​</p>
+<p>领取完成后，可以登录ECS管理控制台。在左侧导航栏，选择实例与镜像 并在顶部菜单栏左上角处，选择ECS实例所在地域。即可找到刚刚申领到的ECS服务器了。</p>
+<p>方式二：直接购买云服务器ECS实例您可以访问云服务器ECS产品页面：<a target="_blank" rel="noopener" href="https://www.aliyun.com/product/ecs">https://www.aliyun.com/product/ecs</a></p>
+<p>点击“立即购买” ，即可进入ECS购买页面。购买配置说明：付费类型：包年包月、按量付费、抢占式实例三种，其中：包年包月模式为先付费后使用，相较于按量付费价格较低，适合搭建网站长期使用；按量付费模式为先使用后付费，按需开通和释放资源，本教程作为教学演示选择此付费类型；抢占式实例操作与按量付费实例相同，在实例保护期外市场价格超过了个人出价，将被释放，相对于按量付费实例价格有一定的折扣；提示：如果您的实例用于web服务，中国内地必须完成ICP备案，备案实例（含续费）时长需在3个月及以上（仅支持包年包月类型）。</p>
+<p>地域：云服务器所在的城市，选择靠近访问者的地域可以有效提升访问速度。网络及可用区：指定专有网络、可用区、交换机，选择默认即可，如有自定义需求，可以点击“创建专有网络”和“创建交换机”进行快速创建。</p>
+<h2 id="Part-2-登录服务器配置">Part 2 登录服务器配置</h2>
+<h3 id="ssh连接">ssh连接</h3>
+<p>使用 ssh连接云服务器，这样可以方便配置<br>
+<img src="https://pic.imgdb.cn/item/65465b3cc458853aef094e41.png" alt="f16441cd6dd8b56e2bccdecbf5f261d0.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="Part-3-手动建站">Part 3 手动建站</h2>
+<h3 id="部署-LAMP-环境">部署 LAMP 环境</h3>
+<h4 id="Linux系统">Linux系统</h4>
+<h4 id="“A”-安装-web-服务器-Apache">“A”: 安装 web 服务器 Apache</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>安装 Apache</p>
+</li>
+</ul>
+<blockquote>
+<p>yum -y install httpd</p>
+</blockquote>
+<p><img src="https://pic.imgdb.cn/item/65465b3cc458853aef094dd1.png" alt="ede44f0179d27926b449a9102922374e.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>设置开机自启</p>
+</li>
+</ul>
+<blockquote>
+<p>systemctl enable httpd</p>
+</blockquote>
+<p><img src="https://pic.imgdb.cn/item/65465b34c458853aef092c05.png" alt="5dd296940c609a2cbcca56d1f1dd2192.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>启动 Apache</p>
+</li>
+</ul>
+<blockquote>
+<p>systemctl start httpd</p>
+</blockquote>
+<p><img src="https://pic.imgdb.cn/item/65465b34c458853aef092b05.png" alt="2e3e0d39cbc1a7b0f78a128fb39dc6a0.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>检查是否成功运行</p>
+</li>
+</ul>
+<blockquote>
+<p>systemctl status httpd</p>
+</blockquote>
+<p><img src="https://pic.imgdb.cn/item/65465b34c458853aef092c6e.png" alt="95d5c8616ec8f2f6e291d89eba838711.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>
+出现 running 表示完成</p>
+<h4 id="安装-Mysql">安装 Mysql</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>安装 Mysql</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新 YUM 源</span></span><br><span class="line">rpm -Uvh http://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装 MySQL 数据库</span></span><br><span class="line">yum -y install mysql-community-server --nogpgcheck</span><br></pre></td></tr></table></figure>
+<p><img src="https://pic.imgdb.cn/item/65465b34c458853aef092d55.png" alt="22781cb5e9fd80b4f8658a2a7c97478a.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>设置 Mysql</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置 MySQL 开机自启动</span></span><br><span class="line">systemctl enable mysqld</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动 MySQL</span></span><br><span class="line">systemctl start mysqld</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看 MySQL 运行状态</span></span><br><span class="line">systemctl status mysqld</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看 MySQL root用户默认密码</span></span><br><span class="line">grep &#x27;temporary password&#x27; /var/log/mysqld.log |awk &#x27;&#123;print $11&#125;&#x27;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执行MySQL 数据库初始化命令，</span></span><br><span class="line">mysql_secure_installation</span><br></pre></td></tr></table></figure>
+<p><img src="https://pic.imgdb.cn/item/65465b34c458853aef092bc1.png" alt="4eac070cdeeb2b797b063419dbef5a08.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>
+其中初始化时需要的 <code>密码</code>，前面有，可以自己改一个，剩下的一路 <code>yes</code> 就可以了</p>
+<h4 id="安装世界上最好的语言PHP">安装世界上最好的语言PHP</h4>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新YUM源</span></span><br><span class="line">yum -y install epel-release</span><br><span class="line">yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装 PHP</span></span><br><span class="line">yum-config-manager --enable remi-php82</span><br><span class="line">yum -y install php php-cli php-common php-devel php-embedded php-fpm php-gd php-ldap php-mbstring php-mcrypt php-fpm php-mysqlnd php-pdo php-opcache php-xml php-soap php-redis php-mongodb</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看 PHP 安装版本</span></span><br><span class="line">php -v</span><br></pre></td></tr></table></figure>
+<p><strong>如果yum-config-manager： command not found</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install yum-utils</span><br></pre></td></tr></table></figure>
+<p><strong>如果出现 No match for argument: php-xxx</strong>, 添加个更新源</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</span><br><span class="line">rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm</span><br></pre></td></tr></table></figure>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>添加php也没</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;&lt;?php phpinfo(); ?&gt;&quot; &gt; /var/www/html/phpinfo.php</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">## 重启 Apache</span></span></span><br><span class="line">systemctl restart httpd</span><br></pre></td></tr></table></figure>
+<h4 id="测试">测试</h4>
+<p>访问</p>
+<blockquote>
+<p>http:// 公网ip<br>
+<a target="_blank" rel="noopener" href="http://xn--ip-xz4cq45o/phpinfo.php">http://公网ip/phpinfo.php</a></p>
+</blockquote>
+<p>如果有误或者无法访问，查看以下几处</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>防火墙</p>
+</li>
+</ul>
+<blockquote>
+<p>可以先关闭防火墙测试，如果能访问在改具体规则</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld.service</span><br></pre></td></tr></table></figure>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>自带规则</p>
+</li>
+</ul>
+<blockquote>
+<p>一般的云服务器会有自带的安全规则，查看这些规则是否屏蔽了80端口</p>
+</blockquote>
+<p>如 阿里云的<br>
+<img src="https://pic.imgdb.cn/item/65465b3cc458853aef094d63.png" alt="e47f97e42fbbfd3b91aaab7c97aeda15.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+
+
+
+
+
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.1.6
+            </span>
+        </div>
+      
+
+     
+
+     
+</footer>
+ 
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        目录导航
+				<span id="post-toc-top">
+					置顶
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2" title="Part 1 搞个服务器"><a rel="nofollow" class="trm-toc-link" href="#Part-1-搞个服务器"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">Part 1 搞个服务器</span></a></li><li class="trm-toc-item trm-toc-level-2" title="Part 2 登录服务器配置"><a rel="nofollow" class="trm-toc-link" href="#Part-2-登录服务器配置"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">Part 2 登录服务器配置</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="ssh连接"><a rel="nofollow" class="trm-toc-link" href="#ssh连接"><span class="trm-toc-number">2.1.</span> <span class="trm-toc-text">ssh连接</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="Part 3 手动建站"><a rel="nofollow" class="trm-toc-link" href="#Part-3-手动建站"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">Part 3 手动建站</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="部署 LAMP 环境"><a rel="nofollow" class="trm-toc-link" href="#部署-LAMP-环境"><span class="trm-toc-number">3.1.</span> <span class="trm-toc-text">部署 LAMP 环境</span></a></li></ol></li></ol>
+      </div>
+    </div>
+
+            
+<div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="目录">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn hidden-md" data-title="单栏和双栏切换" onclick="asyncFun.switchSingleColumn()">
+            <i class="iconfont fas fa-arrows-alt-h"></i>
+        </div>
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+<script src="https://unpkg.com/swiper@4.5.1/dist/js/swiper.min.js"></script>
+
+
+    
+        <script src="/js/plugins/typing.js?v=2.1.6"></script>
+    
+
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.1.6"></script>
+
+</body>
+
+</html>
