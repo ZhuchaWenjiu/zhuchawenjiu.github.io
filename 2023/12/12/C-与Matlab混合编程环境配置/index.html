@@ -7,27 +7,29 @@
 <meta name="full-screen" content="yes">
 <meta name="theme-color" content="#317EFB" />
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
-<meta name="description" content="开放远程服务器端口 关闭防火墙 打开端口也行，直接关了简单  添加安全组 不同的云服务器地方不一样，可以自行百度将端口添加到安全组   在远程ECS运行服务端代码 123git clone xxxxcd UdpFileSender&#x2F;servergo run main.go  本地运行客户端 12cd clientgo run main.go  代码补充 项目在这里，基于这里   添加 md5 校验">
+<meta name="description" content="复现论文 Developability-Driven Piecewise Approximations for Triangular Meshes 环境需要 添加库目录和链接目录   链接目录  E:\Matlab\extern\lib\win64\microsoft   库目录  E:\Matlab\extern\include   这两步做完就可用调用 Matlab 的库函数了，但是运行还是会">
 <meta property="og:type" content="article">
-<meta property="og:title" content="UDP文件传输">
-<meta property="og:url" content="http://example.com/2023/12/11/UDP%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/index.html">
+<meta property="og:title" content="C++与Matlab混合编程环境配置">
+<meta property="og:url" content="http://example.com/2023/12/12/C-%E4%B8%8EMatlab%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="MySite">
-<meta property="og:description" content="开放远程服务器端口 关闭防火墙 打开端口也行，直接关了简单  添加安全组 不同的云服务器地方不一样，可以自行百度将端口添加到安全组   在远程ECS运行服务端代码 123git clone xxxxcd UdpFileSender&#x2F;servergo run main.go  本地运行客户端 12cd clientgo run main.go  代码补充 项目在这里，基于这里   添加 md5 校验">
+<meta property="og:description" content="复现论文 Developability-Driven Piecewise Approximations for Triangular Meshes 环境需要 添加库目录和链接目录   链接目录  E:\Matlab\extern\lib\win64\microsoft   库目录  E:\Matlab\extern\include   这两步做完就可用调用 Matlab 的库函数了，但是运行还是会">
 <meta property="og:locale">
 <meta property="og:image" content="http://example.com/img/404.jpg">
 <meta property="og:image" content="http://example.com/img/404.jpg">
 <meta property="og:image" content="http://example.com/img/404.jpg">
 <meta property="og:image" content="http://example.com/img/404.jpg">
 <meta property="og:image" content="http://example.com/img/404.jpg">
-<meta property="article:published_time" content="2023-12-10T19:27:18.000Z">
-<meta property="article:modified_time" content="2023-12-10T19:27:45.573Z">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="article:published_time" content="2023-12-12T12:43:26.000Z">
+<meta property="article:modified_time" content="2023-12-12T12:45:43.460Z">
 <meta property="article:author" content="zhuchawenjiu">
-<meta property="article:tag" content="project, network">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/img/404.jpg">
 
 
-<title >UDP文件传输</title>
+<title >C++与Matlab混合编程环境配置</title>
 
 <!-- Favicon -->
 
@@ -72,7 +74,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"zhuchawenjiu","root":"/","typed_text":["a normal coder"],"theme_version":"2.1.6","theme":{"switch":true,"default":"style-dark"},"favicon":{"logo":"log.svg","icon16":"log.svg","icon32":"log.svg","appleTouchIcon":"log.svg","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"hidden.svg","showText":"回来就好(/≧▽≦/)","hideText":"你要去哪？"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"covers":["/img/folder1.jpg","/img/folder2.jpg","/img/folder3.jpg"]};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2023-12-11 03:27:45"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2023-12-12 20:45:43"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.1.6" id="trm-switch-style">
@@ -234,7 +236,7 @@
                             NEWS LETTER
                         </div>
                         <h1 class="trm-mb-30 trm-hsmb-font">
-                            UDP文件传输
+                            C++与Matlab混合编程环境配置
                         </h1>
 
                         
@@ -350,13 +352,13 @@
     <div class="col-sm-4">
         <div class="trm-card trm-label trm-label-light text-center">
             <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
-            12/11
+            12/12
         </div>
     </div>
     <div class="col-sm-4">
         <div class="trm-card trm-label trm-label-light text-center">
             <i class="iconfont far fa-clock trm-icon"></i><br>
-            03:27
+            20:43
         </div>
     </div>
     <div class="col-sm-4">
@@ -368,30 +370,42 @@
 </div>
 <div class="trm-card ">
     <article id="article-container" class="trm-publication">
-    <h2 id="开放远程服务器端口">开放远程服务器端口</h2>
-<p><strong>关闭防火墙</strong><br>
-打开端口也行，直接关了简单<br>
-<img src="https://raw.githubusercontent.com/ZhuchaWenjiu/imgback/main/202312102138382.png?token=AKTVCCKFMQKFJYWHE72CDSDFOW7XO" alt="3a1296541737eb183b39ea7bca791677.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>
-<strong>添加安全组</strong><br>
-不同的云服务器地方不一样，可以自行百度将端口添加到安全组<br>
-<img src="https://raw.githubusercontent.com/ZhuchaWenjiu/imgback/main/202312102138892.png?token=AKTVCCP5WTHGZA5MPU74SLDFOW7YC" alt="ecb1ed611ca5390042743de9631d3be5.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>
-<img src="https://raw.githubusercontent.com/ZhuchaWenjiu/imgback/main/202312102138892.png?token=AKTVCCP5WTHGZA5MPU74SLDFOW7YC" alt loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<h2 id="在远程ECS运行服务端代码">在远程ECS运行服务端代码</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone xxxx</span><br><span class="line">cd UdpFileSender/server</span><br><span class="line">go run main.go</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/ZhuchaWenjiu/imgback/main/202312102138708.png?token=AKTVCCPCV5KIXCYCSUCJ2FDFOW7YM" alt="e8b55cf316a8fd423dae3f34c302b0ae.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<h2 id="本地运行客户端">本地运行客户端</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd client</span><br><span class="line">go run main.go</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/ZhuchaWenjiu/imgback/main/202312102138031.png?token=AKTVCCPKK2QTRQDVEY722QTFOW7Y2" alt="f7cd0a38c7816a1fa035ecff337abcec.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<h2 id="代码补充">代码补充</h2>
-<p>项目在<a target="_blank" rel="noopener" href="https://github.com/ZhuchaWenjiu/UDPFileSender">这里</a>，基于<a target="_blank" rel="noopener" href="https://github.com/InferBear/UdpFileSender">这里</a></p>
+    <p>复现论文 <a target="_blank" rel="noopener" href="https://github.com/QingFang1208/DevelopApp">Developability-Driven Piecewise Approximations for Triangular Meshes</a> 环境需要</p>
+<h2 id="添加库目录和链接目录">添加库目录和链接目录</h2>
 <ul class="lvl-0">
 <li class="lvl-2">
-<p>添加 md5 校验</p>
+<p>链接目录<br>
+<img src="https://raw.githubusercontent.com/ZhuchaWenjiu/imgback/main/202312122042976.png" alt="9a68c1e1eedd55163f1670d3a70a29a9.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>
+<code>E:\Matlab\extern\lib\win64\microsoft</code></p>
 </li>
 <li class="lvl-2">
-<p>添加滑动窗口传输</p>
+<p>库目录<br>
+<img src="https://raw.githubusercontent.com/ZhuchaWenjiu/imgback/main/202312122042919.png" alt="cfc2bdfa1f62bdb69642d35c8a69bb12.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>
+<code>E:\Matlab\extern\include</code></p>
 </li>
 </ul>
+<p>这两步做完就可用调用 Matlab 的库函数了，但是运行还是会报错但是已经可用把 Matlab 的命令行调出来了如果调不出来可能是环境变量的问题，把 Matlab  添加到环境</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">D:\Program Files (x86)\Matlab2018a\bin; （安装MATLAB后已经存在不用再添加）</span><br><span class="line">D:\Program Files (x86)\Matlab2018a\bin\win32;</span><br><span class="line">D:\Program Files (x86)\Matlab2018a\bin\win64</span><br></pre></td></tr></table></figure>
+<h2 id="Matlab-与-Vs-联动">Matlab 与 Vs 联动</h2>
+<p>在 Matlab 命令中需要设置 <code>mex -setup</code><br>
+正常情况会搜索出正在使用的 VS 版本，然后找到对应的 <code>xml</code> 文件自行设置，用户只需要选择 使用 <code>C++</code> 或者 <code>FORIRAN</code>.<br>
+然后继续输入 <code>mex -setup C++</code><br>
+如果出现下面错误</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">错误使用 mex 未找到支持的编译器或 SDK。您可以安装免费提供的 MinGW-w64 C/C++ 编译器；请参阅安装 MinGW-w64</span><br><span class="line">编译器。有关更多选项，请访问http://www.mathworks.com/support/compilers/R2016a/win64.html。</span><br></pre></td></tr></table></figure>
+<p>请继续输入 <code>mex -setup -v</code> 查看输出中是否有自己使用的编译器版本<img src="https://raw.githubusercontent.com/ZhuchaWenjiu/imgback/main/202312122042176.png" alt="e9b0940e070f325c5f5eb01734bdc8e7.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>
+如果这里也没有就需要在注册表添加自己的编译器路径，如果有就往下跳打开 <code>regedit</code> ，在 <code>HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\SxS\VS7</code> 下设置自己 VS 的 <code>VC</code> 目录其中 <code>HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\</code> 有可能只到这里，下面两个需要自己创建， <code>SxS,VS7</code> 是项，<code>16.0</code> 是字符值<img src="https://raw.githubusercontent.com/ZhuchaWenjiu/imgback/main/202312122042311.png" alt="5fb3aae142b53342d89cea7bf76c9252.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>
+<code>D:\Programs\vs2019\vs2019\VC</code><br>
+可用在任务管理器找到 VS 的路径，在这个路径里多找找，就能找到类似于<img src="https://raw.githubusercontent.com/ZhuchaWenjiu/imgback/main/202312122042613.png" alt="0d63b730d12adb36eea2e41ccf99de58.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>
+的路径，就到了如果没有这个问题，可以直接<a target="_blank" rel="noopener" href="https://github.com/tzslg/mexopts/tree/main">下载</a> <code>xml</code> 文件放到 <code>Matlab\bin\win64\mexopts</code> 文件夹<img src="https://raw.githubusercontent.com/ZhuchaWenjiu/imgback/main/202312122042783.png" alt="1eeb9a35e95b688d1d3edd5a5e0f0277.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>
+如果是 <code>VS2019</code> 就使用这两个，其他类似<br>
+<img src="https://raw.githubusercontent.com/ZhuchaWenjiu/imgback/main/202312122042050.png" alt="7e56eb6a598398dc65a3e524f02ac302.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>继续在 Matlab 设置现在就可以使用 <code>mex -setup</code><br>
+每次都选择后面带 <code>C++</code> 的选项<br>
+<img src="https://raw.githubusercontent.com/ZhuchaWenjiu/imgback/main/202312122042731.png" alt="fa8f61edb7bf46a7823ffae9649f348a.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>
+<code>mex -setup C++</code>, <code>mex -setup C++ -client MBUILD</code></p>
+<h2 id="测试">测试</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;engine.h&quot;</span>     <span class="comment">// add header file</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// import necessary lib</span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment( lib, <span class="string">&quot;libeng.lib&quot;</span>)</span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment( lib, <span class="string">&quot;libmx.lib&quot;</span>)</span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment( lib, <span class="string">&quot;libmat.lib&quot;</span>)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Engine *ep;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// open engine</span></span><br><span class="line">    <span class="keyword">if</span> (!(ep = <span class="built_in">engOpen</span>(<span class="string">&quot;\0&quot;</span>)))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(stderr, <span class="string">&quot;\nCan&#x27;t start MATLAB engine\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> EXIT_FAILURE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// generate variables</span></span><br><span class="line">    <span class="type">int</span> Nsample = <span class="number">50</span>;</span><br><span class="line">    <span class="type">const</span> <span class="type">double</span> PI = <span class="number">3.1415926</span>;</span><br><span class="line">    <span class="type">double</span> *t = <span class="keyword">new</span> <span class="type">double</span>[Nsample];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; Nsample; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        t[i] = i * <span class="number">2</span> * PI / Nsample;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    mxArray *T = <span class="literal">NULL</span>, *result = <span class="literal">NULL</span>;</span><br><span class="line">    T = <span class="built_in">mxCreateDoubleMatrix</span>(<span class="number">1</span>, Nsample, mxREAL);</span><br><span class="line">    <span class="built_in">memcpy</span>((<span class="type">void</span> *)<span class="built_in">mxGetPr</span>(T), (<span class="type">void</span> *)t, Nsample*<span class="built_in">sizeof</span>(t[<span class="number">0</span>]));</span><br><span class="line"></span><br><span class="line">    <span class="built_in">engPutVariable</span>(ep, <span class="string">&quot;T&quot;</span>, T);         <span class="comment">// put data to engine</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// execute matlab operations</span></span><br><span class="line">    <span class="built_in">engEvalString</span>(ep, <span class="string">&quot;Y=sin(T);&quot;</span>);</span><br><span class="line">    <span class="built_in">engEvalString</span>(ep, <span class="string">&quot;plot(T,Y);&quot;</span>);</span><br><span class="line">    <span class="built_in">engEvalString</span>(ep, <span class="string">&quot;title(&#x27;y=sin(t)&#x27;);&quot;</span>);</span><br><span class="line">    <span class="built_in">engEvalString</span>(ep, <span class="string">&quot;xlabel(&#x27;t&#x27;);&quot;</span>);</span><br><span class="line">    <span class="built_in">engEvalString</span>(ep, <span class="string">&quot;ylabel(&#x27;y&#x27;);&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hit return to continue\n&quot;</span>);</span><br><span class="line">    <span class="built_in">fgetc</span>(stdin);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// clean operation(don&#x27;t forget!!!)</span></span><br><span class="line">    <span class="built_in">mxDestroyArray</span>(T);</span><br><span class="line">    <span class="built_in">engEvalString</span>(ep, <span class="string">&quot;close;&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// close engine</span></span><br><span class="line">    <span class="built_in">engClose</span>(ep);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用这个例子测试是否正常</p>
 
 </article>
     
@@ -407,9 +421,10 @@
         </h5>
     </div>
     
+    
         <div class="col-lg-6">
     <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2023/12/12/C-%E4%B8%8EMatlab%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="trm-cover-frame trm-anima-link">
+        <a href="/2023/12/11/UDP%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" class="trm-cover-frame trm-anima-link">
             
             
                 <div class="trm-cover-img" data-random-img></div>
@@ -423,46 +438,14 @@
                 </a>
             </div>
             <h5>
-                <a href="/2023/12/12/C-%E4%B8%8EMatlab%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="trm-anima-link">
-                    C++与Matlab混合编程环境配置
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>23/12/12</li>
-                <li>20:43</li>
-                
-                
-            </ul>
-        </div>
-    </div>
-</div>
-    
-    
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2023/12/11/Windows%E7%BB%88%E7%AB%AF%E7%BE%8E%E5%8C%96/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <div class="trm-cover-img" data-random-img></div>
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" #.">
-                    未分类
-                </a>
-            </div>
-            <h5>
-                <a href="/2023/12/11/Windows%E7%BB%88%E7%AB%AF%E7%BE%8E%E5%8C%96/" class="trm-anima-link">
-                    Windows终端美化
+                <a href="/2023/12/11/UDP%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" class="trm-anima-link">
+                    UDP文件传输
                 </a>
             </h5>
             <div class="trm-divider trm-mb-20 trm-mt-20"></div>
             <ul class="trm-card-data trm-label">
                 <li>23/12/11</li>
-                <li>03:21</li>
+                <li>03:27</li>
                 
                 
             </ul>
@@ -523,7 +506,7 @@
 				</span>
       </div>
       <div class="trm-post-toc-content">
-        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2" title="开放远程服务器端口"><a rel="nofollow" class="trm-toc-link" href="#开放远程服务器端口"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">开放远程服务器端口</span></a></li><li class="trm-toc-item trm-toc-level-2" title="在远程ECS运行服务端代码"><a rel="nofollow" class="trm-toc-link" href="#在远程ECS运行服务端代码"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">在远程ECS运行服务端代码</span></a></li><li class="trm-toc-item trm-toc-level-2" title="本地运行客户端"><a rel="nofollow" class="trm-toc-link" href="#本地运行客户端"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">本地运行客户端</span></a></li><li class="trm-toc-item trm-toc-level-2" title="代码补充"><a rel="nofollow" class="trm-toc-link" href="#代码补充"><span class="trm-toc-number">4.</span> <span class="trm-toc-text">代码补充</span></a></li></ol>
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2" title="添加库目录和链接目录"><a rel="nofollow" class="trm-toc-link" href="#添加库目录和链接目录"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">添加库目录和链接目录</span></a></li><li class="trm-toc-item trm-toc-level-2" title="Matlab 与 Vs 联动"><a rel="nofollow" class="trm-toc-link" href="#Matlab-与-Vs-联动"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">Matlab 与 Vs 联动</span></a></li><li class="trm-toc-item trm-toc-level-2" title="测试"><a rel="nofollow" class="trm-toc-link" href="#测试"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">测试</span></a></li></ol>
       </div>
     </div>
 
