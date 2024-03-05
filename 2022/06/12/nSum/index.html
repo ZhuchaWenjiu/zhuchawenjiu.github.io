@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="问题说明 nSum问题指的是给出一个目标target在一个数组list中找到n个和为target的数字组合问题可以延申为找到数字的索引，找到不重复的组合，数字不能复用等情况 问题基础 此问题首先需要明白两个问题   nSum是一个递归问题，他可以被分解成 (n - 1)Sum 问题    此问题很容易理解，对于 nSum求 target的问题，就等于 (n - 1)Sum 求 target - 选">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nSum">
+<meta property="og:url" content="http://example.com/2022/06/12/nSum/index.html">
+<meta property="og:site_name" content="MySite">
+<meta property="og:description" content="问题说明 nSum问题指的是给出一个目标target在一个数组list中找到n个和为target的数字组合问题可以延申为找到数字的索引，找到不重复的组合，数字不能复用等情况 问题基础 此问题首先需要明白两个问题   nSum是一个递归问题，他可以被分解成 (n - 1)Sum 问题    此问题很容易理解，对于 nSum求 target的问题，就等于 (n - 1)Sum 求 target - 选">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-06-12T02:30:14.000Z">
+<meta property="article:modified_time" content="2024-03-05T10:10:05.177Z">
+<meta property="article:author" content="zhuchawenjiu">
+<meta property="article:tag" content="algorithm, c++">
+<meta name="twitter:card" content="summary">
+
+
+<title >nSum</title>
+
+<!-- Favicon -->
+
+    <link href='/log.svg?v=2.1.6' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/log.svg?v=2.1.6' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+    <link href='/log.svg?v=2.1.6' rel='apple-touch-icon' sizes='180x180' ></link>
+
+
+    <link href='/site.webmanifest' rel='manifest' ></link>
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/swiper@4.5.1/dist/css/swiper.min.css">
+
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"zhuchawenjiu","root":"/","typed_text":["a normal coder"],"theme_version":"2.1.6","theme":{"switch":true,"default":"style-dark"},"favicon":{"logo":"log.svg","icon16":"log.svg","icon32":"log.svg","appleTouchIcon":"log.svg","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"hidden.svg","showText":"回来就好(/≧▽≦/)","hideText":"你要去哪？"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"covers":["/img/folder1.jpg","/img/folder2.jpg","/img/folder3.jpg"]};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-03-05 18:10:05"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.1.6" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+ 
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/log.svg">
+    
+    
+        <div class="trm-logo-text">
+            DM<span>H</span>
+        </div>
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    首页
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    归档
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/about/" target="">
+                    关于
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/bg2.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            nSum
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2022
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="https://raw.githubusercontent.com/ZhuchaWenjiu/imgback/main/202403051705044.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        zhuchawenjiu
+    </h5>
+    
+        <div class="trm-label">
+            I`m
+            <span class="trm-typed-text">
+                <!-- Words for theme.user.typedText -->
+            </span>
+        </div>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://github.com" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fas fa-cloud"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                现 址:
+            </div>
+            <div class="trm-label trm-label-light">
+                大连
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                年 龄:
+            </div>
+            <div class="trm-label trm-label-light">
+                25
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
+    <!-- action button -->
+    <div class="text-center">
+        <a href="mailto:zhuchawenjiu@gmail.com" class="trm-btn">
+            联系我
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    </div>
+    <!-- action button end -->
+
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            06/12
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            10:30
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            zhuchawenjiu
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h2 id="问题说明">问题说明</h2>
+<p>nSum问题指的是给出一个目标<code>target</code>在一个数组<code>list</code>中找到<code>n</code>个和为<code>target</code>的数字组合问题可以延申为找到数字的索引，找到不重复的组合，数字不能复用等情况</p>
+<h2 id="问题基础">问题基础</h2>
+<p>此问题首先需要明白两个问题</p>
+<ol>
+<li class="lvl-3">
+<p>nSum是一个递归问题，他可以被分解成 (n - 1)Sum 问题</p>
+</li>
+</ol>
+<blockquote>
+<p>此问题很容易理解，对于 nSum求 target的问题，就等于 (n - 1)Sum 求 target - 选中数字 的问题。比如 <code>[0,1,1,2,4,6]</code>数组找 <code>3</code>数字组合为 <code>4</code> 的，那么同等与在 <code>[1,1,2,4,6]</code> 数组中找 <code>2</code> 数字组合为 <code>4</code>的，同等于 在 <code>[1,2,4,6]</code> 组合中 找 <code>1</code>数字组合为 <code>3</code> 的。</p>
+</blockquote>
+<ol start="2">
+<li class="lvl-3">
+<p>对与 2Sum 问题来说，一个排序好的序列可以从两端向中心取值找到符合要求的数字组合</p>
+</li>
+</ol>
+<blockquote>
+<p>因为数组是排序好的，如果两端的值之和大于 <code>target</code> ，说明两个数组选大了，那么就让比较大的那个指针向数字小的方向移动，反之，让比较小的指针向数字大的方向移动。</p>
+</blockquote>
+<ol start="3">
+<li class="lvl-3">
+<p>对于 3Sum 以上的问题，一个排序好的数组选择序号为 <code>i</code> 的值去找 (n - 1)Sum 问题时，需要考虑比 <code>i</code> 小的序号的那些值么？</p>
+</li>
+</ol>
+<blockquote>
+<p>比如，<code>[1,2,2,3,4,5,5,7]</code> 序列中，选择 <code>i=3</code> ，值也为 <code>3</code>，找 (n - 1)Sum问题时，是在 <code>[1,2,2,4,5,5,7]</code> 中找 还是 <code>[4,5,5,7]</code>中找？答案是后者<code>[4,5,5,7]</code>。因为如果在前者序列中找，那么实际上我们还是考虑了已经使用过的数字组合，比如我们在上序列中找 <code>3</code> 数组组合为 <code>11</code>的组合，因为前面已经用过 <code>1</code> 了，那么我们应该已经找到 <code>[1,3,7]</code>这个组合了，当再次找到 <code>3</code> 时，如果依旧考虑<code>[1,2,2,4,5,5,7]</code>, 组合 <code>[1,3,7]</code>会被重复找到，那么问题会陷入循环。</p>
+</blockquote>
+<h2 id="解法">解法</h2>
+<p>最终解法就是用一个递归函数，在 2Sum 问题时停止，或者 1Sum也行，不过 2Sum 可以使用经典的指针，比较典型</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    std::vector&lt;std::vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">threeSum</span>(std::vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        std::<span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">auto</span> ans = <span class="built_in">nSum</span>(nums, <span class="number">3</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    std::vector&lt;std::vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">nSum</span>(std::vector&lt;<span class="type">int</span>&gt; nums, <span class="type">int</span> n, <span class="type">int</span> start, <span class="type">int</span> target)&#123;</span><br><span class="line">        std::vector&lt;std::vector&lt;<span class="type">int</span>&gt;&gt; res; <span class="type">int</span> endIdx = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(n &lt; <span class="number">2</span> || nums.<span class="built_in">size</span>() &lt; n) <span class="comment">// no answer</span></span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(n == <span class="number">2</span>)&#123;</span><br><span class="line">            <span class="comment">// produce the situation 2Sum    </span></span><br><span class="line">            <span class="keyword">while</span> (start &lt; endIdx)&#123;</span><br><span class="line">                <span class="type">int</span> l = nums[start];</span><br><span class="line">                <span class="type">int</span> r = nums[endIdx];</span><br><span class="line">                <span class="keyword">if</span>(nums[start] + nums[endIdx] &lt; target)&#123;</span><br><span class="line">                    <span class="keyword">while</span> (start &lt; endIdx &amp;&amp; nums[start] == l) start ++; <span class="comment">// 此处的跳过使用的方式是 先记录 nums[start] 然后于此数值比较，但是</span></span><br><span class="line">                &#125;																												                                                                <span class="comment">//  |	使用的</span></span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (nums[start] + nums[endIdx] &gt; target)&#123;																	         <span class="comment">//  | 	是 num[i] == num[i + 1]</span></span><br><span class="line">                    <span class="keyword">while</span> (start &lt; endIdx &amp;&amp; nums[endIdx] == r)endIdx --;														              <span class="comment">//  |   原因是什么？</span></span><br><span class="line">                &#125;																												                                                                <span class="comment">//  |</span></span><br><span class="line">                <span class="keyword">else</span>&#123;																											                                                                    <span class="comment">//  ·</span></span><br><span class="line">                    std::vector&lt;<span class="type">int</span>&gt; <span class="built_in">ans</span>(&#123;nums[start], nums[endIdx]&#125;);															   <span class="comment">//  ·</span></span><br><span class="line">                    res.<span class="built_in">push_back</span>(ans);</span><br><span class="line">                    <span class="keyword">while</span> (start &lt; endIdx &amp;&amp; nums[start] == l) start++;</span><br><span class="line">                    <span class="keyword">while</span> (start &lt; endIdx &amp;&amp; nums[endIdx] == r) endIdx--;</span><br><span class="line">                    </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123; <span class="comment">// n &gt;= 3 																	//  |   因为 == l 必定可以 start++</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">size_t</span> i = start; i &lt; endIdx + <span class="number">1</span>; i++)&#123;</span><br><span class="line">                <span class="comment">// 如果在这里 =================</span></span><br><span class="line">                <span class="keyword">auto</span> ans = <span class="built_in">nSum</span>(nums, n - <span class="number">1</span>, i + <span class="number">1</span>, target - nums[i]);															             <span class="comment">//  |   但是下面的就不一定了</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;&amp;subAns : ans)&#123;</span><br><span class="line">                    subAns.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">                    res.<span class="built_in">push_back</span>(subAns);													<span class="comment">//  |   这里的 i++ 由 for循环保证</span></span><br><span class="line">                &#125;   																											                                                                <span class="comment">//  v</span></span><br><span class="line">                <span class="keyword">while</span> (i &lt; endIdx &amp;&amp; nums[i] == nums[i + <span class="number">1</span>]) i++; <span class="comment">// 此处的相同元素跳过应该在最后，因为如果在前面 i++ 后就跳过了所有相同元素  this line</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// test here</span></span><br><span class="line">   Solution t;</span><br><span class="line">   std::vector&lt;<span class="type">int</span>&gt; list = &#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">   t.<span class="built_in">threeSum</span>(list);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2022/07/12/%E7%BB%93%E6%9E%84%E4%BD%93%E5%8D%A0%E7%94%A8%E7%A9%BA%E9%97%B4/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="https://raw.githubusercontent.com/ZhuchaWenjiu/imgback/main/202403051705036.webp">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/c/">
+                    c++
+                </a>
+            </div>
+            <h5>
+                <a href="/2022/07/12/%E7%BB%93%E6%9E%84%E4%BD%93%E5%8D%A0%E7%94%A8%E7%A9%BA%E9%97%B4/" class="trm-anima-link">
+                    结构体占用空间
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>22/07/12</li>
+                <li>08:16</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2022/06/06/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="https://raw.githubusercontent.com/ZhuchaWenjiu/imgback/main/202403051707609.jpeg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/c/">
+                    c++
+                </a>
+            </div>
+            <h5>
+                <a href="/2022/06/06/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="trm-anima-link">
+                    多线程的资源调配
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>22/06/06</li>
+                <li>08:31</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-scroll-animation">
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>© 2022- 2024</span>
+            <span class="footer-separator"data-separator=" · "></span>
+            <span class="trm-accent-color">zhuchawenjiu</span>
+        </div>
+    
+
+      
+
+    
+        <div class="trm-footer-item">
+            博客已萌萌哒运行 <span id="since" class="trm-accent-color"></span> 天
+        </div>
+     
+
+     
+</footer>
+
+<script>
+    function show_date_time () {
+        var BirthDay = new Date("04/12/2021 17:00:00");
+        var today = new Date();
+        var timeold = (today.getTime() - BirthDay.getTime());
+        var msPerDay = 24 * 60 * 60 * 1000
+        var day = Math.floor(timeold / msPerDay)
+        since.innerHTML = day
+    }
+    show_date_time()
+</script>
+ 
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        目录导航
+				<span id="post-toc-top">
+					置顶
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2" title="问题说明"><a rel="nofollow" class="trm-toc-link" href="#问题说明"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">问题说明</span></a></li><li class="trm-toc-item trm-toc-level-2" title="问题基础"><a rel="nofollow" class="trm-toc-link" href="#问题基础"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">问题基础</span></a></li><li class="trm-toc-item trm-toc-level-2" title="解法"><a rel="nofollow" class="trm-toc-link" href="#解法"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">解法</span></a></li></ol>
+      </div>
+    </div>
+
+            
+<div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="目录">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn hidden-md" data-title="单栏和双栏切换" onclick="asyncFun.switchSingleColumn()">
+            <i class="iconfont fas fa-arrows-alt-h"></i>
+        </div>
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+<script src="https://unpkg.com/swiper@4.5.1/dist/js/swiper.min.js"></script>
+
+
+    
+        <script src="/js/plugins/typing.js?v=2.1.6"></script>
+    
+
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.1.6"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> --> 
+<!-- 原本的  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/core.min.js"></script>
+
+</body>
+
+</html>
