@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="对象生命周期： 在C++中，对象的生命周期指的是对象从创建到销毁的整个过程。以下是一些与对象生命周期相关的关键概念： 对象创建： 对象的生命周期始于它被创建。对象可以在栈上创建，也可以通过new运算符在堆上创建。更具体的可以看另一篇笔记 12345&#x2F;&#x2F; 栈上创建对象MyClass obj1;&#x2F;&#x2F; 堆上创建对象MyClass* obj2 &#x3D; new MyClass(); 对象使用： 对象在其生命周期">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对象生命周期 AND 垃圾回收">
+<meta property="og:url" content="http://example.com/2024/03/05/%E5%AF%B9%E8%B1%A1%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F-AND-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/index.html">
+<meta property="og:site_name" content="MySite">
+<meta property="og:description" content="对象生命周期： 在C++中，对象的生命周期指的是对象从创建到销毁的整个过程。以下是一些与对象生命周期相关的关键概念： 对象创建： 对象的生命周期始于它被创建。对象可以在栈上创建，也可以通过new运算符在堆上创建。更具体的可以看另一篇笔记 12345&#x2F;&#x2F; 栈上创建对象MyClass obj1;&#x2F;&#x2F; 堆上创建对象MyClass* obj2 &#x3D; new MyClass(); 对象使用： 对象在其生命周期">
+<meta property="og:locale">
+<meta property="article:published_time" content="2024-03-05T08:28:36.000Z">
+<meta property="article:modified_time" content="2024-03-05T08:30:13.306Z">
+<meta property="article:author" content="zhuchawenjiu">
+<meta name="twitter:card" content="summary">
+
+
+<title >对象生命周期 AND 垃圾回收</title>
+
+<!-- Favicon -->
+
+    <link href='/log.svg?v=2.1.6' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/log.svg?v=2.1.6' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+    <link href='/log.svg?v=2.1.6' rel='apple-touch-icon' sizes='180x180' ></link>
+
+
+    <link href='/site.webmanifest' rel='manifest' ></link>
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/swiper@4.5.1/dist/css/swiper.min.css">
+
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"zhuchawenjiu","root":"/","typed_text":["a normal coder"],"theme_version":"2.1.6","theme":{"switch":true,"default":"style-dark"},"favicon":{"logo":"log.svg","icon16":"log.svg","icon32":"log.svg","appleTouchIcon":"log.svg","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"hidden.svg","showText":"回来就好(/≧▽≦/)","hideText":"你要去哪？"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"covers":["/img/folder1.jpg","/img/folder2.jpg","/img/folder3.jpg"]};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-03-05 16:30:13"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.1.6" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+ 
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/log.svg">
+    
+    
+        <div class="trm-logo-text">
+            DM<span>H</span>
+        </div>
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    首页
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    归档
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/about/" target="">
+                    关于
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            对象生命周期 AND 垃圾回收
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2024
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="https://picdm.sunbangyan.cn/2023/11/01/8e5120a7dd2540706a5e1f523d7d0dc8.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        zhuchawenjiu
+    </h5>
+    
+        <div class="trm-label">
+            I`m
+            <span class="trm-typed-text">
+                <!-- Words for theme.user.typedText -->
+            </span>
+        </div>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://github.com" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fas fa-cloud"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                现 址:
+            </div>
+            <div class="trm-label trm-label-light">
+                大连
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                年 龄:
+            </div>
+            <div class="trm-label trm-label-light">
+                25
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
+    <!-- action button -->
+    <div class="text-center">
+        <a href="mailto:zhuchawenjiu@gmail.com" class="trm-btn">
+            联系我
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    </div>
+    <!-- action button end -->
+
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            03/05
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            16:28
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            zhuchawenjiu
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h3 id="对象生命周期：">对象生命周期：</h3>
+<p>在C++中，对象的生命周期指的是对象从创建到销毁的整个过程。以下是一些与对象生命周期相关的关键概念：</p>
+<p>对象创建： 对象的生命周期始于它被创建。对象可以在栈上创建，也可以通过new运算符在堆上创建。更具体的可以看另一篇笔记</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 栈上创建对象</span></span><br><span class="line">MyClass obj1;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 堆上创建对象</span></span><br><span class="line">MyClass* obj2 = <span class="keyword">new</span> <span class="built_in">MyClass</span>();</span><br></pre></td></tr></table></figure>
+<p>对象使用： 对象在其生命周期内可以被使用。这包括对对象的方法调用、访问其成员等。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">obj1.<span class="built_in">someMethod</span>();</span><br><span class="line"><span class="type">int</span> value = obj1.<span class="built_in">getValue</span>();</span><br></pre></td></tr></table></figure>
+<p>对象销毁： 对象的生命周期在其作用域结束或通过delete运算符显式销毁时结束。</p>
+<p><mark>堆上对象需要显式销毁</mark></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 栈上对象在作用域结束时自动销毁</span></span><br><span class="line">&#123;</span><br><span class="line">    MyClass obj3;</span><br><span class="line">    <span class="comment">// obj3 在此处离开作用域，自动销毁</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 堆上对象需要显式销毁</span></span><br><span class="line">MyClass* obj4 = <span class="keyword">new</span> <span class="built_in">MyClass</span>();</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">delete</span> obj4;  <span class="comment">// 手动销毁对象</span></span><br></pre></td></tr></table></figure>
+<p>析构函数： 类可以定义析构函数，它在对象销毁时被调用，用于执行清理工作，例如释放资源。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ~<span class="built_in">MyClass</span>() &#123;      <span class="comment">// 析构函数中执行清理工作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="垃圾回收：">垃圾回收：</h3>
+<p>在C<ins>中，垃圾回收不像一些其他编程语言那样是自动的。在C</ins>中，开发人员通常负责手动管理内存。然而，有一些工具和技术可以帮助防止内存泄漏和管理动态分配的内存。</p>
+<p>智能指针： C++11引入了智能指针，如<code>std::shared_ptr</code>和<code>std::unique_ptr</code>，它们帮助自动管理内存，减少了手动<code>new</code>和<code>delete</code>的使用。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 std::shared_ptr 管理内存</span></span><br><span class="line">std::shared_ptr&lt;MyClass&gt; obj = std::<span class="built_in">make_shared</span>&lt;MyClass&gt;();</span><br></pre></td></tr></table></figure>
+<p>RAII（资源获取即初始化）： 使用RAII原则，通过在对象构造函数中获取资源（例如内存），在析构函数中释放资源，从而确保资源的正确管理。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ResourceHolder</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span>* resource;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">ResourceHolder</span>() &#123;</span><br><span class="line">        resource = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">10</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~<span class="built_in">ResourceHolder</span>() &#123;</span><br><span class="line">        <span class="keyword">delete</span>[] resource;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>虽然C++没有垃圾回收器，但通过使用智能指针、RAII等技术，可以更安全和有效地管理内存。要避免内存泄漏，始终确保在不再需要对象时释放其分配的资源。</p>
+<h3 id="简单测试">简单测试</h3>
+<p>问题：</p>
+<p>考虑以下C++代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">MyClass</span>() &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Constructor\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~<span class="built_in">MyClass</span>() &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Destructor\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    MyClass obj;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Inside main\n&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><mark>Q:输出是什么？解释为什么。</mark></p>
+<details>
+    <summary>
+    Answer
+    </summary>
+    Constructor  <br>
+    Inside main  <br>
+    Destructor  <br>
+</details>
+<p>问题：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">MyClass</span>() &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Constructor\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~<span class="built_in">MyClass</span>() &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Destructor\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::unique_ptr&lt;MyClass&gt; ptr = std::<span class="built_in">make_unique</span>&lt;MyClass&gt;();</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Inside main\n&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><mark>Q:输出是什么？解释为什么。</mark></p>
+<details>
+    <summary>
+    Answer
+    </summary>
+    Constructor<br>
+Inside main<br>
+Destructor<br>
+</details>
+<p>问题：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">MyClass</span>() &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Constructor\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~<span class="built_in">MyClass</span>() &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Destructor\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">functionWithSharedPtr</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::shared_ptr&lt;MyClass&gt; sharedPtr = std::<span class="built_in">make_shared</span>&lt;MyClass&gt;();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">functionWithSharedPtr</span>();</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Inside main\n&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><mark>Q: 输出是什么？解释为什么。</mark></p>
+<details> <summary>Anwer</summary>
+    Constructor <br>
+    Destructor <br>
+    Inside main <br>
+</details>
+问题：
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">MyClass</span>() &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Constructor\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">MyClass</span>(<span class="type">const</span> MyClass&amp; other) &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Copy Constructor\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~<span class="built_in">MyClass</span>() &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Destructor\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">functionPassByValue</span><span class="params">(MyClass obj)</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Inside function\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    MyClass obj;</span><br><span class="line">    <span class="built_in">functionPassByValue</span>(obj);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Inside main\n&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><mark>Q: 输出是什么？解释为什么。</mark></p>
+<details> 
+    <summary>Answer</summary>    
+Constructor			 main中的obj创建 <br>
+Copy Constructor 			fuctionPassByValue函数中 obj 创建<br>
+Inside function			 函数内容<br>
+Destructor					functionPassByValue函数中的 obj 析构<br>
+Inside main				main 函数输出<br>
+Destructor			 main 中 obj 析构<br>
+<li>    main 函数中创建了一个 MyClass 对象 obj，构造函数被调用。(创建 main 函数中的 obj)
+    </li>
+<li>functionPassByValue 函数被调用，将 obj 作为参数传递给形参，这触发了拷贝构造函数的调用，创建了一个新的 MyClass 对象。（创建 functionPassByValue 中的 obj, 使用 main 中的 Obj 创建，如果 MyClass 没有 <em>拷贝构造函数</em> 会直接使用 MyClass() ）
+</li>
+<li>
+在 functionPassByValue 函数内部，输出 "Inside function"，然后函数结束，形参对象的析构函数被调用。
+</li>
+<li>
+返回到 main 函数，输出 "Inside main"，obj 对象的析构函数被调用。
+</li>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">MyClass</span>() &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Constructor\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~<span class="built_in">MyClass</span>() &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Destructor\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::shared_ptr&lt;MyClass&gt; sharedPtr = std::<span class="built_in">make_shared</span>&lt;MyClass&gt;();</span><br><span class="line">    std::shared_ptr&lt;MyClass&gt; anotherSharedPtr = sharedPtr;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Inside main\n&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><mark>Q: 输出是什么？解释为什么。</mark></p>
+<details>
+    <summary> Answer </summary>
+    Constructor <br>
+Inside main <br>
+Destructor <br>
+<li>
+    在 main 函数中，创建了一个 `std::shared_ptr`，并使用 `std::make_shared` 分配内存，构造函数被调用。
+</li> 
+<li>
+创建了另一个 `std::shared_ptr`，并将其初始化为第一个 `sharedPtr`，此时两个智能指针共享相同的对象。
+</li> 
+<li>
+输出 "Inside main"，然后 main 函数结束，第一个 `sharedPtr` 和 `anotherSharedPtr` 离开作用域，引用计数减少。
+</li> 
+<li>
+    当引用计数减为零时，对象的析构函数被调用，输出 "Destructor"。因为两个智能指针共享相同的对象，只有当最后一个 `shared_ptr` 离开作用域时，对象才会被销毁。
+</li>
+</details>
+<hr>
+<p>当然，让我们逐一回答这些问题：</p>
+<h3 id="1-解释C-对象的三个主要生命周期阶段，分别是什么？在这些阶段中，构造函数和析构函数分别发生在什么时候？">1. 解释C++对象的三个主要生命周期阶段，分别是什么？在这些阶段中，构造函数和析构函数分别发生在什么时候？</h3>
+<p>在C++中，对象的生命周期包括以下三个阶段：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>构造阶段（Construction）：</strong> 在对象被创建时调用构造函数。这是对象生命周期的第一个阶段，用于初始化对象的成员变量。构造函数通常在对象声明时自动调用。</p>
+</li>
+<li class="lvl-2">
+<p><strong>使用阶段（Usage）：</strong> 在对象的生命周期中，对象被使用或者说执行其功能。这个阶段持续的时间取决于对象的用途和设计。</p>
+</li>
+<li class="lvl-2">
+<p><strong>析构阶段（Destruction）：</strong> 在对象生命周期结束时，析构函数被调用。析构函数用于清理对象使用的资源，例如释放动态分配的内存或关闭文件。析构函数通常在对象超出范围时（离开其作用域或被显式删除）或程序结束时被调用。</p>
+</li>
+</ul>
+<h3 id="2-什么是析构函数？为什么它是对象生命周期中的一个重要部分？在什么情况下会调用析构函数？">2. 什么是析构函数？为什么它是对象生命周期中的一个重要部分？在什么情况下会调用析构函数？</h3>
+<p><strong>析构函数</strong>是一个特殊的成员函数，它的名称与类名相同，前面加上波浪号（~）。它在对象的生命周期结束时被调用，用于执行一些清理工作，如释放资源。析构函数是对象生命周期中的最后一个阶段。</p>
+<p>析构函数的重要性在于它确保了在对象不再需要时释放占用的资源，防止资源泄漏。它会在以下情况下被调用：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>对象超出其作用域。</p>
+</li>
+<li class="lvl-2">
+<p>动态分配的对象通过 <code>delete</code> 关键字被显式销毁。</p>
+</li>
+<li class="lvl-2">
+<p>在程序结束时，全局和静态对象的析构函数会被调用。</p>
+</li>
+</ul>
+<h3 id="3-详细解释对象的生命周期与作用域的关系。什么是局部对象、全局对象和动态对象？它们的生命周期有何不同？">3. 详细解释对象的生命周期与作用域的关系。什么是局部对象、全局对象和动态对象？它们的生命周期有何不同？</h3>
+<p><strong>生命周期与作用域的关系：</strong> 对象的<mark>作用域</mark>定义了对象的<mark>可见性</mark>，而<mark>生命周期</mark>定义了对象的<mark>存在时间</mark>。对象的作用域可以是局部（在函数或块内）、全局（整个程序中可见）或动态（通过 <code>new</code> 运算符动态分配的对象）。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>局部对象：</strong> 作用域仅在声明它的块或函数内。生命周期在块结束时结束。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">someFunction</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> localVar;  <span class="comment">// 局部对象</span></span><br><span class="line">&#125;  <span class="comment">// localVar 超出作用域，生命周期结束</span></span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-2">
+<p><strong>全局对象：</strong> 作用域在整个程序中。生命周期在程序运行期间。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> globalVar;  <span class="comment">// 全局对象</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// globalVar 在整个 main 函数内可见</span></span><br><span class="line">&#125;  <span class="comment">// globalVar 生命周期在程序结束时结束</span></span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-2">
+<p><strong>动态对象：</strong> 使用 <code>new</code> 运算符动态分配的对象。作用域没有限制，但需要手动释放以避免内存泄漏。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>* dynamicVar = <span class="keyword">new</span> <span class="type">int</span>;  <span class="comment">// 动态对象</span></span><br><span class="line"><span class="comment">// dynamicVar 在整个程序中可见</span></span><br><span class="line"><span class="keyword">delete</span> dynamicVar;  <span class="comment">// 手动释放，生命周期结束</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="4-解释-C-中的对象生命周期与-RAII（Resource-Acquisition-Is-Initialization）的关系。为什么-RAII-对于资源管理如此重要？">4. 解释 C++ 中的对象生命周期与 RAII（Resource Acquisition Is Initialization）的关系。为什么 RAII 对于资源管理如此重要？</h3>
+<p><strong>RAII（Resource Acquisition Is Initialization）</strong> 是一种 C++ 编程范式，它利用对象的生命周期来管理资源。在 RAII 中，资源的获取和释放与对象的构造和析构过程关联，从而确保资源在对象生命周期内被正确管理。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>资源的获取和释放：</strong> 资源（如内存、文件句柄等）的获取和释放过程嵌套在对象的构造和析构中。</p>
+</li>
+<li class="lvl-2">
+<p><strong>生命周期管理：</strong> 由于对象的生命周期与资源的获取和释放紧密关联，确保在对象生命周期内资源一直被正确管理。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">FileHandleRAII</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">FileHandleRAII</span>(<span class="type">const</span> <span class="type">char</span>* filename) &#123;</span><br><span class="line">        file = <span class="built_in">fopen</span>(filename, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (!file) &#123;</span><br><span class="line">            <span class="comment">// 处理打开文件失败的情况</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~<span class="built_in">FileHandleRAII</span>() &#123;</span><br><span class="line">        <span class="keyword">if</span> (file) &#123;</span><br><span class="line">            <span class="built_in">fclose</span>(file);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 其他成员函数...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    FILE* file;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>RAII 的优势在于，即使发生异常或提前退出作用域，对象的析构函数会确保资源得到释放，避免了资源泄漏。</p>
+<h3 id="5-什么是临时对象（Temporary-Object）？它们的生命周期是如何管理的？在什么情况下会创建临时对象？">5. 什么是临时对象（Temporary Object）？它们的生命周期是如何管理的？在什么情况下会创建临时对象？</h3>
+<p><strong>临时对象</strong>是在表达式中创建的对象，其生命周期仅在表达式结束时。它们通常在计算表达式的过程中产生。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>生命周期管理：</strong> 临时对象的生命周期与包含它们的表达式相对应。一旦表达式结束，临时对象就会被销毁。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> result = <span class="built_in">add</span>(<span class="number">2</span>, <span class="number">3</span>);  <span class="comment">// 临时对象，生命周期在分号处结束</span></span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-2">
+<p><strong>创建临时对象的情况：</strong> 通常在函数返回值、运算符重载等情况下会创建临时对象。C++11 引入了右值引用和移动语义，进一步优化了</p>
+</li>
+</ul>
+<p>临时对象的性能。</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::string <span class="title">concatenate</span><span class="params">(<span class="type">const</span> std::string&amp; str1, <span class="type">const</span> std::string&amp; str2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> str1 + str2;  <span class="comment">// 临时对象，生命周期在这个表达式结束时结束</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2024/03/05/KMP%E7%AE%97%E6%B3%95/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-img" data-random-img></div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" #.">
+                    未分类
+                </a>
+            </div>
+            <h5>
+                <a href="/2024/03/05/KMP%E7%AE%97%E6%B3%95/" class="trm-anima-link">
+                    KMP算法
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/03/05</li>
+                <li>16:30</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2024/03/05/RAII-in-CPP/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-img" data-random-img></div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/c/">
+                    c++
+                </a>
+            </div>
+            <h5>
+                <a href="/2024/03/05/RAII-in-CPP/" class="trm-anima-link">
+                    RAII in CPP
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/03/05</li>
+                <li>16:27</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-scroll-animation">
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>© 2022- 2024</span>
+            <span class="footer-separator"data-separator=" · "></span>
+            <span class="trm-accent-color">zhuchawenjiu</span>
+        </div>
+    
+
+      
+
+    
+        <div class="trm-footer-item">
+            博客已萌萌哒运行 <span id="since" class="trm-accent-color"></span> 天
+        </div>
+     
+
+     
+</footer>
+
+<script>
+    function show_date_time () {
+        var BirthDay = new Date("04/10/2022 17:00:00");
+        var today = new Date();
+        var timeold = (today.getTime() - BirthDay.getTime());
+        var msPerDay = 24 * 60 * 60 * 1000
+        var day = Math.floor(timeold / msPerDay)
+        since.innerHTML = day
+    }
+    show_date_time()
+</script>
+ 
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        目录导航
+				<span id="post-toc-top">
+					置顶
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-3" title="对象生命周期："><a rel="nofollow" class="trm-toc-link" href="#对象生命周期："><span class="trm-toc-number">1.</span> <span class="trm-toc-text">对象生命周期：</span></a></li><li class="trm-toc-item trm-toc-level-3" title="垃圾回收："><a rel="nofollow" class="trm-toc-link" href="#垃圾回收："><span class="trm-toc-number">2.</span> <span class="trm-toc-text">垃圾回收：</span></a></li><li class="trm-toc-item trm-toc-level-3" title="简单测试"><a rel="nofollow" class="trm-toc-link" href="#简单测试"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">简单测试</span></a></li><li class="trm-toc-item trm-toc-level-3" title="1. 解释C++对象的三个主要生命周期阶段，分别是什么？在这些阶段中，构造函数和析构函数分别发生在什么时候？"><a rel="nofollow" class="trm-toc-link" href="#1-解释C-对象的三个主要生命周期阶段，分别是什么？在这些阶段中，构造函数和析构函数分别发生在什么时候？"><span class="trm-toc-number">4.</span> <span class="trm-toc-text">1. 解释C++对象的三个主要生命周期阶段，分别是什么？在这些阶段中，构造函数和析构函数分别发生在什么时候？</span></a></li><li class="trm-toc-item trm-toc-level-3" title="2. 什么是析构函数？为什么它是对象生命周期中的一个重要部分？在什么情况下会调用析构函数？"><a rel="nofollow" class="trm-toc-link" href="#2-什么是析构函数？为什么它是对象生命周期中的一个重要部分？在什么情况下会调用析构函数？"><span class="trm-toc-number">5.</span> <span class="trm-toc-text">2. 什么是析构函数？为什么它是对象生命周期中的一个重要部分？在什么情况下会调用析构函数？</span></a></li><li class="trm-toc-item trm-toc-level-3" title="3. 详细解释对象的生命周期与作用域的关系。什么是局部对象、全局对象和动态对象？它们的生命周期有何不同？"><a rel="nofollow" class="trm-toc-link" href="#3-详细解释对象的生命周期与作用域的关系。什么是局部对象、全局对象和动态对象？它们的生命周期有何不同？"><span class="trm-toc-number">6.</span> <span class="trm-toc-text">3. 详细解释对象的生命周期与作用域的关系。什么是局部对象、全局对象和动态对象？它们的生命周期有何不同？</span></a></li><li class="trm-toc-item trm-toc-level-3" title="4. 解释 C++ 中的对象生命周期与 RAII（Resource Acquisition Is Initialization）的关系。为什么 RAII 对于资源管理如此重要？"><a rel="nofollow" class="trm-toc-link" href="#4-解释-C-中的对象生命周期与-RAII（Resource-Acquisition-Is-Initialization）的关系。为什么-RAII-对于资源管理如此重要？"><span class="trm-toc-number">7.</span> <span class="trm-toc-text">4. 解释 C++ 中的对象生命周期与 RAII（Resource Acquisition Is Initialization）的关系。为什么 RAII 对于资源管理如此重要？</span></a></li><li class="trm-toc-item trm-toc-level-3" title="5. 什么是临时对象（Temporary Object）？它们的生命周期是如何管理的？在什么情况下会创建临时对象？"><a rel="nofollow" class="trm-toc-link" href="#5-什么是临时对象（Temporary-Object）？它们的生命周期是如何管理的？在什么情况下会创建临时对象？"><span class="trm-toc-number">8.</span> <span class="trm-toc-text">5. 什么是临时对象（Temporary Object）？它们的生命周期是如何管理的？在什么情况下会创建临时对象？</span></a></li></ol>
+      </div>
+    </div>
+
+            
+<div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="目录">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn hidden-md" data-title="单栏和双栏切换" onclick="asyncFun.switchSingleColumn()">
+            <i class="iconfont fas fa-arrows-alt-h"></i>
+        </div>
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+<script src="https://unpkg.com/swiper@4.5.1/dist/js/swiper.min.js"></script>
+
+
+    
+        <script src="/js/plugins/typing.js?v=2.1.6"></script>
+    
+
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.1.6"></script>
+
+</body>
+
+</html>
